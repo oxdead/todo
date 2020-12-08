@@ -1,7 +1,9 @@
 <template>
     <div>
         <div v-bind:key="todo.id" v-for="todo in todos">
-            <TodoItem v-bind:todo="todo" v-on:del-todo="$emit('del-todo', todo.id)" />
+            <TodoItem v-bind:todo="todo" 
+                v-on:del-todo="$emit('del-todo', todo.id)" 
+                v-on:mark-todo="markTodo(todo.id)" />
         </div>
     </div>
 </template>
@@ -15,7 +17,13 @@ export default {
     components: {
         TodoItem
     },
-    props: ["todos"]
+    props: ["todos"],
+    methods: {
+        markTodo(tid) {
+            this.$emit('mark-todo', tid);
+        }
+    }
+
 }
 </script>
 

@@ -1,7 +1,8 @@
 <template>
     <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
         <p>
-            <input type="checkbox" v-on:change="markComplete">
+            <!-- <input type="checkbox" v-on:change="markComplete"> -->
+            <input type="checkbox" v-on:change="markTodo">
             {{todo.title}}
             <button @click="$emit('del-todo', todo.id)" class="del">x</button>
         </p>
@@ -14,10 +15,22 @@ export default {
     name: "TodoItem",
     props: ["todo"],
     methods: {
-        markComplete() {
-            this.todo.completed = !this.todo.completed;
+        // markComplete() {
+        //     // Unexpected mutation of "todo" prop  vue/no-mutating-props
+        //     this.todo.completed = !this.todo.completed;
+        // },
+
+        // to prevent: Unexpected mutation of "todo" prop  vue/no-mutating-props
+        // it's a bad practice to modify a prop, that doesn't belong to component
+        // todo: this can be solved too by using 'computed:' property ?
+        markTodo() {
+            //console.log(this.todo.id);
+            //console.log(this.todo.completed);
+            this.$emit('mark-todo', this.todo.id);
         }
     }
+    
+    
 }
 </script>
 
